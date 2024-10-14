@@ -37,7 +37,8 @@ public class LoginPanel : MonoBehaviour
 
     public void OnClickOneBtn()
     {
-        Util.ShowSimpleConfirmPanel("알림", "One Button", delegate () { Debug.Log("yes"); });
+        //Util.ShowSimpleConfirmPanel("알림", "One Button", delegate () { Debug.Log("yes"); });
+        Util.ShowLoadingWait(true, "Loading...");
     }
 
     public void OnClickToastBtn()

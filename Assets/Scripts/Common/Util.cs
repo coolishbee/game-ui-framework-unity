@@ -76,4 +76,44 @@ public class Util
             UIManager.Instance.topNotiUI.AddNoti(text);
         }
     }
+
+    static public Loading_Panel ShowLoadingWait(bool show)
+    {
+        return ShowLoadingWait(show, string.Empty);//"Loading...");
+    }
+
+    static public Loading_Panel ShowLoadingWait(bool show, string text)
+    {
+        return ShowLoadingWait(show, text, string.Empty);
+    }
+
+    static public Loading_Panel ShowLoadingWait(bool show, string text, string textureResource)
+    {
+        Loading_Panel panel = null;
+        ObjectTag ot = ObjectTag.Find(ObjectType.UI, "loading_wait");
+        if (ot == null)
+        {
+            if (show)
+            {
+                GameObject prefab = ResourceManager.Instance.GetUIPrefab("ui", "Loading_Panel");
+                GameObject go = AddChild(GameObject.Find("Root"), prefab);
+                go.transform.localPosition = new Vector3(0f, 0f, go.transform.localPosition.z);
+                go.transform.localScale = Vector3.one;
+
+                ot = ObjectTag.Tagging(go, ObjectType.UI, "loading_wait");
+            }
+        }
+
+        if (ot != null)
+        {
+            panel = ot.GetComponent<Loading_Panel>();
+            if (panel != null)
+            {
+                panel.ShowText(text);
+            }
+            ot.myGameObject.SetActive(show);
+        }
+
+        return panel;
+    }
 }
